@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banneker Bulldog - Freshman Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Chat Window -->
+        <div class="chat-wrapper">
+            <!-- Header -->
+            <div class="chat-header">
+                <div class="header-content">
+                    <h1>🐾 Banneker Bulldog</h1>
+                    <p>Your Freshman Guide</p>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="bulldog-avatar">🐂</div>
+                    <div class="message-content">
+                        <p>Woof! Welcome to Banneker High School! 🎓</p>
+                        <p>I'm here to answer your freshman questions. What would you like to know?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggested Questions -->
+            <div class="suggestions-container" id="suggestionsContainer">
+                <div class="suggestion-label">Quick Questions:</div>
+                <div class="suggestions">
+                    <button class="suggestion-btn" onclick="handleQuestion('BSI')">What is BSI?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('pathways')">AP vs Pre-IB?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('schedule')">School Hours?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('clubs')">Clubs & Activities?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('nervous')">Nervous?</button>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    class="chat-input" 
+                    placeholder="Ask me anything about being a Banneker freshman..."
+                    onkeypress="handleKeyPress(event)"
+                >
+                <button class="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <!-- Bulldog Character (Sidebar) -->
+        <div class="bulldog-section">
+            <div class="bulldog-character">🐂</div>
+            <p class="motto">"Go Bulldogs!"</p>
+            <div class="info-box">
+                <h3>Need Help?</h3>
+                <p>I know everything about starting your freshman year at Banneker!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
