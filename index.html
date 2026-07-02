@@ -4,7 +4,323 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banneker Bulldog - Freshman Guide</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #dc2626;
+            --accent-color: #f59e0b;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #dc2626 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            height: 700px;
+        }
+
+        .chat-wrapper {
+            flex: 1;
+            background: #1e293b;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 3px solid #f59e0b;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #1e40af, #dc2626);
+            padding: 25px;
+            text-align: center;
+            color: white;
+            border-bottom: 3px solid #f59e0b;
+        }
+
+        .chat-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #0f172a;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bulldog-avatar {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 15px 18px;
+            border-radius: 15px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .bot-message .message-content {
+            background: linear-gradient(135deg, #334155, #475569);
+            color: #f1f5f9;
+            border: 2px solid #f59e0b;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+        }
+
+        .user-message .message-content {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            border: 2px solid #3b82f6;
+        }
+
+        .suggestions-container {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+        }
+
+        .suggestion-label {
+            font-size: 13px;
+            color: #f59e0b;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .suggestion-btn {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            border: 2px solid #f59e0b;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .suggestion-btn:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        .chat-input-area {
+            padding: 15px 20px;
+            border-top: 2px solid #f59e0b;
+            display: flex;
+            gap: 10px;
+            background: #1e293b;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 13px 18px;
+            background: #334155;
+            border: 2px solid #f59e0b;
+            color: #f1f5f9;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            background: #0f172a;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #0f172a;
+            border: 2px solid #f59e0b;
+            padding: 13px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
+        }
+
+        .bulldog-section {
+            width: 240px;
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 3px solid #f59e0b;
+        }
+
+        .bulldog-character {
+            font-size: 100px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .motto {
+            color: #f59e0b;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.3), rgba(220, 38, 38, 0.3));
+            border: 2px solid #f59e0b;
+            border-radius: 15px;
+            padding: 18px;
+            margin-top: auto;
+        }
+
+        .info-box h3 {
+            color: #f59e0b;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 5px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #d97706;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .chat-wrapper {
+                min-height: 600px;
+            }
+
+            .bulldog-section {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .bulldog-character {
+                font-size: 70px;
+            }
+
+            .chat-header h1 {
+                font-size: 24px;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -12,10 +328,8 @@
         <div class="chat-wrapper">
             <!-- Header -->
             <div class="chat-header">
-                <div class="header-content">
-                    <h1>🐾 Banneker Bulldog</h1>
-                    <p>Your Freshman Guide</p>
-                </div>
+                <h1>🐂 Banneker Bulldog</h1>
+                <p>Your Freshman Guide</p>
             </div>
 
             <!-- Chat Messages -->
@@ -23,21 +337,21 @@
                 <div class="message bot-message">
                     <div class="bulldog-avatar">🐂</div>
                     <div class="message-content">
-                        <p>Woof! Welcome to Banneker High School! 🎓</p>
-                        <p>I'm here to answer your freshman questions. What would you like to know?</p>
+                        <strong>Woof! Welcome to Banneker High School! 🎓</strong><br><br>
+                        I'm here to answer your freshman questions. What would you like to know?
                     </div>
                 </div>
             </div>
 
             <!-- Suggested Questions -->
-            <div class="suggestions-container" id="suggestionsContainer">
-                <div class="suggestion-label">Quick Questions:</div>
+            <div class="suggestions-container">
+                <div class="suggestion-label">⚡ Quick Questions:</div>
                 <div class="suggestions">
-                    <button class="suggestion-btn" onclick="handleQuestion('BSI')">What is BSI?</button>
-                    <button class="suggestion-btn" onclick="handleQuestion('pathways')">AP vs Pre-IB?</button>
-                    <button class="suggestion-btn" onclick="handleQuestion('schedule')">School Hours?</button>
-                    <button class="suggestion-btn" onclick="handleQuestion('clubs')">Clubs & Activities?</button>
-                    <button class="suggestion-btn" onclick="handleQuestion('nervous')">Nervous?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('BSI')">📚 What is BSI?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('pathways')">🎯 AP vs Pre-IB?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('schedule')">⏰ School Hours?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('clubs')">🏆 Clubs?</button>
+                    <button class="suggestion-btn" onclick="handleQuestion('nervous')">💙 Nervous?</button>
                 </div>
             </div>
 
@@ -47,7 +361,7 @@
                     type="text" 
                     id="userInput" 
                     class="chat-input" 
-                    placeholder="Ask me anything about being a Banneker freshman..."
+                    placeholder="Ask me anything about freshman year..."
                     onkeypress="handleKeyPress(event)"
                 >
                 <button class="send-btn" onclick="sendMessage()">Send</button>
@@ -59,8 +373,8 @@
             <div class="bulldog-character">🐂</div>
             <p class="motto">"Go Bulldogs!"</p>
             <div class="info-box">
-                <h3>Need Help?</h3>
-                <p>I know everything about starting your freshman year at Banneker!</p>
+                <h3>🎉 Need Help?</h3>
+                <p>I know everything about starting your freshman year at Banneker! Just ask me anything!</p>
             </div>
         </div>
     </div>
